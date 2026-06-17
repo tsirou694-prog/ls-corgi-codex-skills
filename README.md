@@ -1,91 +1,64 @@
-# LS Corgi Codex Skills
+# Corgi IP Illustrations
 
-LS Corgi Codex Skills is a small open-source skill pack for generating Chinese article illustrations with the original LS / LS-Q corgi IP.
+> 16:9 横版 | 个人柯基 IP | 纯白手绘 | 少量红橙蓝中文批注 | Codex Skill
 
-It contains two Codex skills:
+这是一个本地定制版 Codex Skill，用来为中文文章、帖子、博客、Notion 文档、方法论和工作流内容生成正文配图。
 
-- `ls-corgi-illustrations-v2`: default version, LS-Q chibi 3D cartoon corgi style.
-- `ls-corgi-illustrations`: legacy v1, flat color-block corgi illustration style.
+它从 `helloianneo/ian-xiaohei-illustrations` 派生，保留原项目的正文配图工作流、构图方法和 QA 思路，把默认角色替换为个人橙白柯基 IP。
 
-## What This Skill Does
+## 核心变化
 
-These skills help Codex turn Chinese articles, notes, scripts, and explanations into 16:9 article illustrations. They define:
+- skill 名：`corgi-ip-illustrations`
+- 默认角色：橙白柯基 IP
+- 参考图：`corgi-ip-illustrations/assets/ip-reference/`
+- 核心风格：纯白背景、正文插画感、清爽手绘、萌系亲和、大量留白、少量红橙蓝中文手写批注
+- 固定角色约束：橙白柯基 IP 没有尾巴
+- 禁止方向：3D 渲染、纯贴纸表情包、低幼儿童卡通、宠物写真、PPT 信息图
 
-- LS / LS-Q character identity and visual consistency.
-- Article illustration strategy and shot-list rules.
-- Prompt templates for single-image generation.
-- QA checks for common failures such as over-dense diagrams, decorative-only mascots, unreadable labels, or style drift.
+## 本地安装
 
-## Install On macOS
-
-Install the default LS-Q v2 skill from GitHub:
-
-```bash
-python ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
-  --repo YOUR_GITHUB_USERNAME/ls-corgi-codex-skills \
-  --path skills/ls-corgi-illustrations-v2
-```
-
-Install both v2 and legacy v1:
+复制 skill 主目录到 Codex skills 目录：
 
 ```bash
-python ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
-  --repo YOUR_GITHUB_USERNAME/ls-corgi-codex-skills \
-  --path skills/ls-corgi-illustrations-v2 \
-  --path skills/ls-corgi-illustrations
+cp -R ./corgi-ip-illustrations "${CODEX_HOME:-$HOME/.codex}/skills/"
 ```
 
-Restart Codex after installation.
+安装后重启 Codex。
 
-## Manual Install
-
-Clone this repository and copy the skill folders into your Codex skills directory:
-
-```bash
-mkdir -p ~/.codex/skills
-cp -R skills/ls-corgi-illustrations-v2 ~/.codex/skills/
-cp -R skills/ls-corgi-illustrations ~/.codex/skills/
-```
-
-Restart Codex after copying.
-
-## Usage
-
-Example prompt:
+## 使用示例
 
 ```text
-使用 LS skill 为这篇文章做 4 张正文配图，先给 shot list，再生成第一张。
+Use $corgi-ip-illustrations 为这篇中文文章设计并生成 4 张柯基 IP 正文配图。
 ```
-
-For the default v2 style:
 
 ```text
-使用 LS-Q 风格为这篇文章生成第一张正文配图。
+Use $corgi-ip-illustrations 先不要生图，先给这篇文章做配图策略。
+每张图写清楚：放在哪段后、主题、核心意思、结构类型、柯基在做什么、建议中文标注词。
 ```
 
-For the legacy v1 style:
+## 目录
 
 ```text
-使用老版 LS 扁平风为这篇文章生成第一张正文配图。
+corgi-ip-illustrations/
+├── SKILL.md
+├── agents/
+│   └── openai.yaml
+├── assets/
+│   └── ip-reference/
+│       ├── corgi-front.png
+│       ├── corgi-elegant.png
+│       └── corgi-online.png
+└── references/
+    ├── composition-patterns.md
+    ├── corgi-ip.md
+    ├── prompt-template.md
+    ├── qa-checklist.md
+    └── style-dna.md
 ```
 
-## Repository Structure
+## 发布前检查
 
-```text
-skills/
-  ls-corgi-illustrations-v2/
-    SKILL.md
-    references/
-    assets/reference-ip/
-  ls-corgi-illustrations/
-    SKILL.md
-    references/
-    assets/reference-ip/
-```
-
-## IP And License
-
-The LS / LS-Q corgi character, reference images, skill instructions, and prompt templates included in this repository are original assets provided by the copyright holder and released under the MIT License in this repository.
-
-See [LICENSE](LICENSE) and [NOTICE](NOTICE).
-
+- 确认测试图已经通过 QA。
+- 确认 README、NOTICE、示例提示词不再残留旧 skill 名。
+- 确认 Git 远程地址指向自己的仓库。
+- 不自动 push，等明确指令后再发布。

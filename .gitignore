@@ -1,5 +1,14 @@
 .DS_Store
 Thumbs.db
-*.tmp
-*.log
 
+# Local generated outputs
+generated/
+outputs/
+dist/
+
+# Local editor files
+.idea/
+.vscode/
+
+# Logs
+*.log
